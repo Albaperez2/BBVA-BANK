@@ -1,0 +1,128 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>BBVA Bank - Compte de Alba Perez</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4ff;
+            color: #003366;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #003366;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            padding: 20px;
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: #003366;
+        }
+
+        .balance, .savings {
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+
+        .transactions {
+            margin-top: 20px;
+        }
+
+        .transaction {
+            border-bottom: 1px solid #ccc;
+            padding: 5px 0;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 15px;
+            margin-top: 10px;
+            background-color: #003366;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+            .btn:hover {
+                background-color: #0055a5;
+            }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #003366;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            display: none;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>BBVA Bank</h1>
+        <p>Compte de Alba Perez</p>
+    </header>
+
+    <div class="container">
+        <h2>Solde du compte</h2>
+        <div class="balance">153 650 €</div>
+        <div class="savings">Épargne : 75 258 €</div>
+
+        <h2>Historique des transactions</h2>
+        <div class="transactions" id="transactions">
+            <div class="transaction">01/11/2025 - Virement reçu : 2 000 €</div>
+            <div class="transaction">28/10/2025 - Paiement carte : 150 €</div>
+            <div class="transaction">20/10/2025 - Épargne ajoutée : 500 €</div>
+        </div>
+
+        <button class="btn" onclick="makeTransfer()">Effectuer un virement</button>
+    </div>
+
+    <div class="notification" id="notification">
+        Your limit will be renewed in 30 days.
+        <button onclick="closeNotification()" style="margin-left:10px;background:#fff;color:#003366;border:none;padding:3px 6px;border-radius:3px;cursor:pointer;">X</button>
+    </div>
+
+    <script>
+        function makeTransfer() {
+            const amount = prompt("Montant du virement (€) :");
+            if (amount && !isNaN(amount)) {
+                const date = new Date().toLocaleDateString();
+                const div = document.createElement("div");
+                div.className = "transaction";
+                div.textContent = `${date} - Virement envoyé : ${parseFloat(amount).toLocaleString()} €`;
+                document.getElementById("transactions").prepend(div);
+                alert("Virement ajouté à l'historique (fictif)!");
+            }
+        }
+
+        function showNotification() {
+            document.getElementById("notification").style.display = "block";
+        }
+
+        function closeNotification() {
+            document.getElementById("notification").style.display = "none";
+        }
+
+        // Affiche notification 1 minute après ouverture
+        setTimeout(showNotification, 60000);
+    </script>
+</body>
+</html>
